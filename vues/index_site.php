@@ -19,7 +19,7 @@
 <body>
 		<!-- Barre de navigation -->
 		<nav class="navbar navbar-default">
-			<div class="container-fluid">
+			<div class="container-fluid" style="height: 70%">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">Be-Primeur</a>
 				</div>
