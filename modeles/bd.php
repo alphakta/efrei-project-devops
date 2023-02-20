@@ -5,12 +5,12 @@
     private $bdd;
     private $passwd;
 
-	function __construct($host,$user,$bdd,$passwd) 
+	function __construct() 
 	{
-		$this->host = $host;
-		$this->user = $user;
-		$this->bdd = $bdd;
-		$this->passwd = $passwd;
+		$this->host = getenv('DB_HOST');
+		$this->user = getenv('DB_USER');
+		$this->passwd = getenv('DB_PASSWORD');
+		$this->bdd = getenv('DB_DATABASE');
 	}
 
 	public function seConnecter() 
@@ -25,7 +25,7 @@
 	}
 
 }
-	$DB = new connect_db('db','test','be_primeur','test');
+	$DB = new connect_db();
 	$coBDD = $DB->seConnecter();
 
 ?>
