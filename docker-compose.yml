@@ -1,25 +1,3 @@
-# version: '3'
-# services:
-#   web:
-#     build: .
-#     ports:
-#       - 8082:80
-#   phpmyadmin:
-#     image: phpmyadmin/phpmyadmin
-#     restart: always
-#     ports:
-#       - 8080:80
-#     environment:
-#       - PMA_ARBITRARY=1
-#   db:
-#     image: mysql:latest
-#     ports:
-#       - 5506:3306
-#     restart: unless-stopped
-#     environment:
-#       MYSQL_USER: root
-#       MYSQL_PASSWORD: 12345678
-#       MYSQL_ROOT_PASSWORD: 12345678
 version: '3'
 services:
   db: 
@@ -29,16 +7,15 @@ services:
       - MYSQL_USER=test
       - MYSQL_PASSWORD=test 
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
-      - host_cache_size=0 
+      - host_cache_size=0
     volumes:
-      - "./db:/docker-entrypoint-initdb.d" 
+      - "./db:/docker-entrypoint-initdb.d"
   www:
     image: php:apache
     volumes:
-      - "./:/var/www/html" # sync the current dir on local machine to the dir of container
+      - "./:/var/www/html" 
     ports:
       - 8082:80
-      - 443:443 # for future ssl traffic
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:

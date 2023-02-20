@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 18 jan. 2021 à 22:34
+-- Généré le : lun. 20 fév. 2023 à 12:22
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.4.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `id16711553_beprimeur`
+-- Base de données : `bd_be_primeur.sql`
 --
 
 -- --------------------------------------------------------
@@ -35,7 +35,7 @@ CREATE TABLE `client` (
   `adresseClient` varchar(100) NOT NULL,
   `telClient` text NOT NULL,
   `mailClient` varchar(30) NOT NULL,
-  `mdpClient` varchar(25) NOT NULL
+  `mdpClient` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -43,9 +43,10 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`numClient`, `numQuartier`, `nomClient`, `prenomClient`, `adresseClient`, `telClient`, `mailClient`, `mdpClient`) VALUES
-(4, NULL, 'Admin', 'Admin', '', '1234567890', 'admin@gmail.com', 'admin'),
 (13, 1, 'Keita', 'Alpha', '173 Av. de la division leclerc', '0751590912', 'alpha@gmail.com', 'keita01'),
-(17, 1, 'Pasbeau', 'Arthur', '4 rue henri janin', '0606060606', 'arthur@gmail.com', 'pasbeau01');
+(17, 1, 'Pasbeau', 'Arthur', '4 rue henri janin', '0606060606', 'arthur@gmail.com', 'pasbeau01'),
+(33, 8, 'Keitaa', 'Alphaa', '4 rue henri janin', '0606060606', 'alpha94@gmail.com', '$2y$10$5yyIiKw82U3esOBQnL.2B.9dAzJvOj5KUzNlMg3UoJQw1RwBafWtO'),
+(34, 8, 'Admin', 'Admin', 'Avenue de la division leclerc', '0606060606', 'admin@gmail.com', '$2y$10$W9RpKeuwlY7XKIHCc69Gyu3iTuEDvgtRo20ijbuJgusD31atKrZuC');
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,8 @@ CREATE TABLE `commande` (
 --
 
 INSERT INTO `commande` (`numCommande`, `numClient`, `numGroupe`, `dateCommande`, `statut`) VALUES
-(22, 13, NULL, '2021-01-15', 'attente');
+(22, 13, NULL, '2021-01-15', 'valider'),
+(23, NULL, 10, '2021-03-06', 'attente');
 
 -- --------------------------------------------------------
 
@@ -87,7 +89,8 @@ INSERT INTO `famille` (`numFamille`, `nomFamille`) VALUES
 (1, 'Tomate'),
 (2, 'Peche'),
 (3, 'Pomme'),
-(5, 'Fruit rouge');
+(5, 'Fruit rouge'),
+(6, 'Orange');
 
 -- --------------------------------------------------------
 
@@ -100,6 +103,13 @@ CREATE TABLE `groupe` (
   `nomGroupe` varchar(25) NOT NULL,
   `adresseGroupe` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `groupe`
+--
+
+INSERT INTO `groupe` (`numGroupe`, `nomGroupe`, `adresseGroupe`) VALUES
+(10, 'Valonton', '173 Av. de la division le');
 
 -- --------------------------------------------------------
 
@@ -118,7 +128,11 @@ CREATE TABLE `ligne_commande` (
 --
 
 INSERT INTO `ligne_commande` (`numCommande`, `numProduit`, `quantite`) VALUES
-(22, 4, 15);
+(22, 4, 5),
+(22, 5, 2),
+(23, 5, 1),
+(23, 7, 1),
+(23, 8, 6);
 
 -- --------------------------------------------------------
 
@@ -130,6 +144,13 @@ CREATE TABLE `ligne_groupe` (
   `numGroupe` int(2) NOT NULL,
   `numClient` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `ligne_groupe`
+--
+
+INSERT INTO `ligne_groupe` (`numGroupe`, `numClient`) VALUES
+(10, 13);
 
 -- --------------------------------------------------------
 
@@ -143,6 +164,13 @@ CREATE TABLE `livraison` (
   `typeLivraison` varchar(25) NOT NULL,
   `frequence` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `livraison`
+--
+
+INSERT INTO `livraison` (`numCommande`, `dateLivraison`, `typeLivraison`, `frequence`) VALUES
+(22, '2021-03-09', 'Express', 'Ponctuelle');
 
 -- --------------------------------------------------------
 
@@ -190,11 +218,12 @@ INSERT INTO `produit` (`numProduit`, `nomProduit`, `numType`, `numFamille`, `sto
 (2, 'Tomate cerise', 2, 1, 50, 0.85, 'tomatecerise.png', 0),
 (3, 'Tomate ananas', 2, 1, 50, 0.8, 'tomateananas.png', 0),
 (4, 'Peche blanche', 1, 2, 46, 0.95, 'pecheblanche.png', 2),
-(5, 'Peche jaune', 1, 2, 49, 1.25, 'pechejaune.png', 1),
+(5, 'Peche jaune', 1, 2, 47, 1.25, 'pechejaune.png', 1),
 (6, 'Peche de vigne', 1, 2, 49, 1.25, 'pechevigne.png', 1),
 (7, 'Pomme golden', 1, 3, 49, 0.98, 'pommegolden.png', 1),
 (8, 'Pomme gala', 1, 3, 49, 1.05, 'pommegala.png', 1),
-(9, 'Fraise', 1, 5, 50, 1.25, 'fraise.png', 0);
+(9, 'Fraise', 1, 5, 50, 1.25, 'fraise.png', 0),
+(14, 'Oranges', 1, 6, 37, 2.57, 'orange.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -213,7 +242,9 @@ CREATE TABLE `quartier` (
 --
 
 INSERT INTO `quartier` (`numQuartier`, `codeQuartier`, `nomQuartier`) VALUES
-(1, 75000, 'Paris');
+(1, 75000, 'Paris'),
+(8, 94190, 'Villeneuve Saint Georges'),
+(9, 0, '');
 
 -- --------------------------------------------------------
 
@@ -319,25 +350,25 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `numClient` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `numClient` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT pour la table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `numCommande` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `numCommande` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `famille`
 --
 ALTER TABLE `famille`
-  MODIFY `numFamille` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `numFamille` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `groupe`
 --
 ALTER TABLE `groupe`
-  MODIFY `numGroupe` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `numGroupe` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `panier`
@@ -349,13 +380,13 @@ ALTER TABLE `panier`
 -- AUTO_INCREMENT pour la table `produit`
 --
 ALTER TABLE `produit`
-  MODIFY `numProduit` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `numProduit` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `quartier`
 --
 ALTER TABLE `quartier`
-  MODIFY `numQuartier` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `numQuartier` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `type`

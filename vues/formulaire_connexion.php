@@ -40,7 +40,7 @@
 
 				<h1 class="text-center" > Connectez-vous à votre compte </h1>
 				<p> Vous n'avez pas de compte ? <a href="formulaire_inscription.php"required>Créez-en un ! </a></p>
-				<form method="post" action="/PTS3/controleurs/connexion.php">
+				<form method="post" action="./../controleurs/connexion.php">
 
 
 					<div class="mb-3">
@@ -54,7 +54,7 @@
 					</div>
 
 
-					<input type="submit"class="btn btn-primary" name="bouton" value="Connectez-vous" action="/PTS3/controleurs/connexion.php"/>
+					<input type="submit"class="btn btn-primary" name="bouton" value="Connectez-vous" action="./../controleurs/connexion.php"/>
 				</form>
 			</div>
 		</div>

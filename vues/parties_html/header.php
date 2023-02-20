@@ -56,7 +56,7 @@ session_start();
 					if(isset($_SESSION['email'])) 
 					{
 						echo "<li><a href='espace_commande.php'> <span class='glyphicon glyphicon-shopping-cart'></span> Mes commandes</a></li>";
-						echo "<li><a href='/PTS3/controleurs/deconnexion.php'><span class='glyphicon glyphicon-off'></span> Deconnexion</a></li>";
+						echo "<li><a href='./../controleurs/deconnexion.php'><span class='glyphicon glyphicon-off'></span> Deconnexion</a></li>";
 					}
 					else
 					{

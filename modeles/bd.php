@@ -25,7 +25,7 @@
 	}
 
 }
-	$DB = new connect_db('localhost','root','bd_projet_tutore','');
+	$DB = new connect_db('db','test','be_primeur','test');
 	$coBDD = $DB->seConnecter();
 
 ?>

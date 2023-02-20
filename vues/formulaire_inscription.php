@@ -35,7 +35,7 @@
 	<div class="container">
 		<div class="well well-lg">
 
-			<form method="post" action="/PTS3/controleurs/inscription.php">
+			<form method="post" action="./../controleurs/inscription.php">
 				<h1 class="text-center" > Créez votre compte </h1>
 				<p> Vous avez déjà un compte ? <a href="formulaire_connexion.php">Connectez-vous ! </a></p>
 
@@ -86,7 +86,7 @@
 					</div>
 				</div>
 
-				<input type="submit"class="btn btn-primary" name="bouton" value="Enregistrer" action="/PTS3/controleurs/inscription.php"/>
+				<input type="submit"class="btn btn-primary" name="bouton" value="Enregistrer" action="./../controleurs/inscription.php"/>
 			</form>
 		</div>
 	</div>

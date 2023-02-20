@@ -17,6 +17,6 @@
 				</SELECT>
 			</p> 
 
-			<input type="submit" name="bouton" value="Valider le mode de livraison" action="../controleurs/gestion_livraison.php" />
+			<input type="submit" name="bouton" value="Valider le mode de livraison" action="./../controleurs/gestion_livraison.php" />
 
 		</form>

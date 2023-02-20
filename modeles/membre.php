@@ -43,13 +43,14 @@
     public function ajoutBD($co, $prenom, $nom, $mdp, $email, $adresse, $tel, $codepostal, $ville) {
         //mysqli_query($co, "INSERT into quartier (codeQuartier, nomQuartier) VALUES ('$codepostal','$ville')");
         $numQuartier = mysqli_insert_id($co);
-    	mysqli_query($co, "insert into client (prenomClient, nomClient, mdpClient, mailClient, adresseClient, telClient, numQuartier) VALUES ('$prenom','$nom','$mdp','$email','$adresse','$tel', '$numQuartier')");
-    }
+        $mdpHash = password_hash($mdp, PASSWORD_DEFAULT);
 
+    	mysqli_query($co, "insert into client (prenomClient, nomClient, mdpClient, mailClient, adresseClient, telClient, numQuartier) VALUES ('$prenom','$nom','$mdpHash','$email','$adresse','$tel', '$numQuartier')");
+    }
 
     public function initialiser($mail, $mdp)
     {
-        $requete = mysqli_query($this->co,"SELECT * FROM client WHERE mailClient = '$mail' AND mdpClient = '$mdp'");
+        $requete = mysqli_query($this->co,"SELECT * FROM client WHERE mailClient = '$mail'");
 
         if(mysqli_num_rows($requete) != 0)
         {
@@ -61,14 +62,17 @@
             $this->email = $data['mailClient'];
             $this->adresse = $data['adresseClient'];
             $this->tel = $data['telClient'];
-            $this->connexion();
 
-            header('Location: /PTS3/vues/espace_membre_client.php');
-
+            if (password_verify($mdp, $this->mdp)) {
+                $this->connexion();
+                header('Location: ./../vues/espace_membre_client.php');
+            }
+            else {
+                header('Location: ./../vues/formulaire_connexion.php');
+            }
         }
         else
-            header('Location: /PTS3/vues/formulaire_connexion.php');
-
+            header('Location: ./../vues/formulaire_connexion.php');
 
     }
 

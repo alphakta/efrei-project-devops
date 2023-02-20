@@ -44,7 +44,7 @@
 
 
     echo "Connexion établie avec succès, vous allez être rediriger dans un instant!";
-   header('Location: /PTS3/vues/formulaire_connexion.php');
+   header('Location: ./vues/formulaire_connexion.php');
 
 
    ?>
