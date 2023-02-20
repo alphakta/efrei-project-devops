@@ -1,5 +1,18 @@
 version: '3'
 services:
+  www:
+    image: php:apache
+    volumes:
+      - "./:/var/www/html" 
+    ports:
+      - 8082:80    
+    environment:
+      - DB_HOST=db
+      - DB_USER=test
+      - DB_PASSWORD=test
+      - DB_DATABASE=be_primeur
+    depends_on:
+      - db
   db: 
     image: mysql:latest
     environment:
@@ -10,17 +23,6 @@ services:
       - host_cache_size=0
     volumes:
       - "./db:/docker-entrypoint-initdb.d"
-  www:
-    image: php:apache
-    volumes:
-      - "./:/var/www/html" 
-    ports:
-      - 8082:80
-    environment:
-      - DB_HOST=db
-      - DB_USER=test
-      - DB_PASSWORD=test
-      - DB_DATABASE=be_primeur
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
@@ -28,5 +30,7 @@ services:
     environment:
       - PMA_HOST=db
       - PMA_PORT=3306
+    depends_on:
+      - db
 
 
