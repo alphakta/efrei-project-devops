@@ -6,7 +6,7 @@ services:
   - docker:dind
 
 build application:
-  state: build
+  stage: build
   script:
     - docker-compose build
     - docker login -u $CI_REGISTRY_USER -p $CI_DEPLOY_TOKEN $CI_REGISTRY 
