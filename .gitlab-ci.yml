@@ -8,7 +8,7 @@ build application:
   stage: build
   script:
     - sudo docker-compose build
-    - sudo docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-    - docker push $CI_REGISTRY_IMAGE/be-primeur-app:$CI_COMMIT_SHA
+    - sudo docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $DEPLOY_TOKEN
+    - sudo docker push $CI_REGISTRY_IMAGE/be-primeur-app:$CI_COMMIT_SHA
   tags:
     - shell
