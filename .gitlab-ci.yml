@@ -1,5 +1,6 @@
 stages:
   - build
+  - deploy
 
 services:
   - docker:dind
@@ -13,5 +14,14 @@ build application:
     - sudo docker build --pull --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:dev .
     - sudo docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - sudo docker push $CI_REGISTRY_IMAGE:dev
+  tags:
+    - shell
+
+deploy application:
+  stage: deploy
+  image: ubuntu
+  script:
+    - sudo apt-get update && apt-get install -y ansible
+    - sudo ansible-playbook deploy.yml -i
   tags:
     - shell

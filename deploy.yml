@@ -9,12 +9,19 @@
       state: started
       enabled: yes
 
-  # - name: Build Application
-  #   docker_image:
-  #     name: beprimeur:latest
-  #     build:
-  #       path: ./
-  #     source: build
+  - name: Check if Docker image already exists
+    shell: docker inspect beprimeur:latest
+    register: docker_inspect
+    ignore_errors: true
+
+  - name: Build Application
+    docker_image:
+      name: beprimeur:latest
+      build:
+        path: ./
+      source: build
+      tag: beprimeur:latest
+    when: docker_inspect.rc != 0
 
   - name: Up containers with docker_compose
     docker_compose:
