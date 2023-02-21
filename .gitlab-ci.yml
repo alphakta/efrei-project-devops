@@ -34,8 +34,7 @@ stop application deployment:
     - sudo ansible-playbook stop_deploy.yml
   only:
     - main
-  when:
-    - manual
+  when: manual
   tags:
     - shell
 
