@@ -25,6 +25,8 @@ deploy application:
     - sudo ansible-playbook deploy.yml
   only:
     - main
+  needs:
+    - build
   tags:
     - shell
 
