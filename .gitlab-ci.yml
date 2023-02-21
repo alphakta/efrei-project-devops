@@ -21,6 +21,6 @@ deploy application:
   stage: deploy
   image: ubuntu
   script:
-    - sudo ansible-playbook deploy.yml -i
+    - sudo ansible-playbook deploy.yml
   tags:
     - shell
