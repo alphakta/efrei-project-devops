@@ -1,0 +1,22 @@
+- name: Deploy Be-Primeur Application
+  become: yes
+  hosts: 127.0.0.1
+
+  tasks:
+  - name: Start docker
+    systemd:
+      name: docker
+      state: started
+      enabled: yes
+
+  # - name: Build Application
+  #   docker_image:
+  #     name: beprimeur:latest
+  #     build:
+  #       path: ./
+  #     source: build
+
+  - name: Up containers with docker_compose
+    docker_compose:
+      project_src: ./
+      state: present
