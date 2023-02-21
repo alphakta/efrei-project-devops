@@ -21,7 +21,6 @@ deploy application:
   stage: deploy
   image: ubuntu
   script:
-    - sudo apt-get update && apt-get install -y ansible
     - sudo ansible-playbook deploy.yml -i
   tags:
     - shell
