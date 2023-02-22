@@ -17,13 +17,13 @@ build application:
   services:
     - docker:dind
   script:
-    - docker login -u $CI_REGISTRY_USER -p $DEPLOY_TOKEN
-    - docker build -t $IMAGE_NAME .
-    - docker tag $IMAGE_NAME $REGISTRY_IMAGE:$IMAGE_TAG
-    - docker push $REGISTRY_IMAGE:$IMAGE_TAG
-    - docker pull $REGISTRY_IMAGE:$IMAGE_TAG
-    - docker build -t $REGISTRY_IMAGE:$IMAGE_TAG .
-    - docker push $REGISTRY_IMAGE:$IMAGE_TAG
+    - sudo docker login -u $CI_REGISTRY_USER -p $DEPLOY_TOKEN
+    - sudo docker build -t $IMAGE_NAME .
+    - sudo docker tag $IMAGE_NAME $REGISTRY_IMAGE:$IMAGE_TAG
+    - sudo docker push $REGISTRY_IMAGE:$IMAGE_TAG
+    - sudo docker pull $REGISTRY_IMAGE:$IMAGE_TAG
+    - sudo docker build -t $REGISTRY_IMAGE:$IMAGE_TAG .
+    - sudo docker push $REGISTRY_IMAGE:$IMAGE_TAG
   only:
     - main
   tags:
