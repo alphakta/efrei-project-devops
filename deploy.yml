@@ -18,7 +18,6 @@
     docker_compose:
       project_src: ./
       build: yes
-      force_rm: yes
       pull: yes
 
   - name: Up containers with docker_compose
