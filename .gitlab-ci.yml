@@ -1,6 +1,6 @@
 stages:
   - build
-  # - deploy
+  - deploy
   # - stop_deploy
 
 services:
@@ -27,14 +27,14 @@ build application:
   tags:
     - shell
 
-# deploy application:
-#   stage: deploy
-#   script:
-#     - sudo ansible-playbook deploy.yml
-#   only:
-#     - main
-#   tags:
-#     - shell
+deploy application:
+  stage: deploy
+  script:
+    - sudo ansible-playbook deploy.yml
+  only:
+    - main
+  tags:
+    - shell
 
 # stop application deployment:
 #   stage: stop_deploy
