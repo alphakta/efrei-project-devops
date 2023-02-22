@@ -1,6 +1,11 @@
 - name: Deploy Be-Primeur Application
   become: yes
   hosts: localhost
+  # vars:
+  #   CI_REGISTRY_IMAGE: "{{ CI_REGISTRY_IMAGE }}"
+  #   CI_REGISTRY: "{{ CI_REGISTRY }}"
+  #   CI_REGISTRY_USER: "{{ CI_REGISTRY_USER }}"
+  #   CI_REGISTRY_PASSWORD: "{{ CI_REGISTRY_PASSWORD }}"
 
   tasks:
   - name: Start docker
@@ -9,21 +14,31 @@
       state: started
       enabled: yes
 
-  - name: Login to registry Gitlab
-    docker_login:
-      registry_url: "{{ lookup('env', 'CI_REGISTRY') }}"
-      username: "{{ lookup('env', 'CI_REGISTRY_USER') }}"
-      password: "{{ lookup('env', 'CI_REGISTRY_PASSWORD') }}"
-    register: login_result
+  # - name: Login to registry Gitlab
+  #   docker_login:
+  #     registry_url: "{{ lookup('env', 'CI_REGISTRY') }}"
+  #     username: "{{ lookup('env', 'CI_REGISTRY_USER') }}"
+  #     password: "{{ lookup('env', 'CI_REGISTRY_PASSWORD') }}"
+  #   register: login_result
 
-  # - name: Log CI_REGISTRY variable
+  # - name: Log CI_REGISTRY image
   #   debug:
-  #     var: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}"
+  #     msg: "{{ CI_REGISTRY_IMAGE }}"
 
-  - name: Extract image from GitLab registry
-    command: docker pull "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env','CI_COMMIT_SHA') }}"
+  # - name: Log CI_REGISTRY 
+  #   debug:
+  #     msg: "{{ CI_REGISTRY }}"
 
-    # when: login_result.login_result.Status = "Login Succeeded"
+  # - name: Log CI_REGISTRY_USER 
+  #   debug:
+  #     msg: "{{ CI_REGISTRY_USER }}"
+
+  # - name: Log CI_COMMIT_SHA 
+  #   debug:
+  #     msg: "{{ CI_REGISTRY }}"
+
+  # - name: Extract image from GitLab registry
+  #   command: docker pull "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env','CI_COMMIT_SHA') }}"
 
 
 
@@ -35,7 +50,7 @@
   #     tag: "{{ lookup('env', 'CI_COMMIT_SHA') }}"
   #   when: login_result.logged_in
 
-  # - name: Up containers with docker_compose
-  #   docker_compose:
-  #     project_src: ./
-  #     state: present
+  - name: Up containers with docker_compose
+    docker_compose:
+      project_src: ./
+      state: present
