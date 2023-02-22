@@ -23,4 +23,4 @@
   - name: Up containers with docker_compose
     docker_compose:
       project_src: ./
-      up: yes
+      state: present
