@@ -1,6 +1,6 @@
 - name: Deploy Be-Primeur Application
   become: yes
-  hosts: localhost
+  hosts: 127.0.0.1
 
   tasks:
   - name: Start docker
@@ -9,47 +9,19 @@
       state: started
       enabled: yes
 
-  - name: Pull Docker image from GitLab registry
-    docker_login:
-      registry_url: "{{ lookup('env', 'CI_REGISTRY') }}"
-      username: "{{ lookup('env', 'CI_REGISTRY_USER') }}"
-      password: "{{ lookup('env', 'CI_REGISTRY_PASSWORD') }}"
-    register: login_result
-
-  # - name: Check if Docker image already exists
-  #   docker_image:
-  #     name: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env', 'CI_COMMIT_SHA') }}"
-  #     source: pull
-  #   register: docker_pull
-  #   until: docker_pull is succeeded
-  #   retries: 5
-
   - name: Check if Docker image already exists
-    docker_image:
-      name: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env', 'CI_COMMIT_SHA') }}"
-      source: inspect
-      tag: "{{ lookup('env', 'CI_COMMIT_SHA') }}"
+    shell: docker inspect beprimeur:latest
     register: docker_inspect
+    ignore_errors: true
 
-  - name: Build Application if necessary
+  - name: Build Application
     docker_image:
-      name: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env', 'CI_COMMIT_SHA') }}"
+      name: beprimeur:latest
       build:
         path: ./
       source: build
-      tag: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env', 'CI_COMMIT_SHA') }}"
-      force_build: yes
-    when: login_result.changed or docker_pull.changed
-
-  # - name: Build Application if necessary
-  #   docker_image:
-  #     name: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env', 'CI_COMMIT_SHA') }}"
-  #     build:
-  #       path: ./
-  #     source: build
-  #     tag: latest
-  #     force_build: yes
-  #   when: docker_inspect|failed or login_result.changed
+      tag: beprimeur:latest
+    when: docker_inspect.rc != 0
 
   - name: Up containers with docker_compose
     docker_compose:
