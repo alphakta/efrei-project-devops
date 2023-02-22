@@ -11,8 +11,8 @@ build application:
   script:
     - sudo docker-compose build
     - sudo docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $DEPLOY_TOKEN
-    - sudo docker pull $CI_REGISTRY_IMAGE:latest || true
-    - sudo docker build --pull --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - sudo docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA || true
+    - sudo docker build --pull --cache-from $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
     - sudo docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
   only:
     - main
