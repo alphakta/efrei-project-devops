@@ -9,49 +9,33 @@
       state: started
       enabled: yes
 
-  - name: Pull Docker image from GitLab registry
+  - name: Login to registry Gitlab
     docker_login:
       registry_url: "{{ lookup('env', 'CI_REGISTRY') }}"
       username: "{{ lookup('env', 'CI_REGISTRY_USER') }}"
       password: "{{ lookup('env', 'CI_REGISTRY_PASSWORD') }}"
     register: login_result
 
-  # - name: Check if Docker image already exists
+  # - name: Log CI_REGISTRY variable
+  #   debug:
+  #     var: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}"
+
+  - name: Extract image from GitLab registry
+    command: docker pull "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env','CI_COMMIT_SHA') }}"
+
+    # when: login_result.login_result.Status = "Login Succeeded"
+
+
+
+  # - name: Build Application Web
   #   docker_image:
-  #     name: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env', 'CI_COMMIT_SHA') }}"
-  #     source: pull
-  #   register: docker_pull
-  #   until: docker_pull is succeeded
-  #   retries: 5
+  #     name: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:latest"
+  #     pull: yes
+  #     path: ./
+  #     tag: "{{ lookup('env', 'CI_COMMIT_SHA') }}"
+  #   when: login_result.logged_in
 
-  - name: Check if Docker image already exists
-    docker_image:
-      name: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env', 'CI_COMMIT_SHA') }}"
-      source: inspect
-      tag: "{{ lookup('env', 'CI_COMMIT_SHA') }}"
-    register: docker_inspect
-
-  - name: Build Application if necessary
-    docker_image:
-      name: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env', 'CI_COMMIT_SHA') }}"
-      build:
-        path: ./
-      source: build
-      tag: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env', 'CI_COMMIT_SHA') }}"
-      force_build: yes
-    when: login_result.changed or docker_pull.changed
-
-  # - name: Build Application if necessary
-  #   docker_image:
-  #     name: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env', 'CI_COMMIT_SHA') }}"
-  #     build:
-  #       path: ./
-  #     source: build
-  #     tag: latest
-  #     force_build: yes
-  #   when: docker_inspect|failed or login_result.changed
-
-  - name: Up containers with docker_compose
-    docker_compose:
-      project_src: ./
-      state: present
+  # - name: Up containers with docker_compose
+  #   docker_compose:
+  #     project_src: ./
+  #     state: present
