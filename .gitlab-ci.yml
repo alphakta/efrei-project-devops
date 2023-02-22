@@ -1,40 +1,50 @@
 stages:
   - build
-  - deploy
-  - stop_deploy
+  # - deploy
+  # - stop_deploy
 
 services:
   - docker:dind
 
+variables:
+  IMAGE_NAME: beprimeur
+  IMAGE_TAG: $CI_COMMIT_SHA
+  REGISTRY_IMAGE: $CI_REGISTRY/$IMAGE_NAME
+
 build application:
   stage: build
+  image: docker:latest
+  services:
+    - docker:dind
   script:
-    - sudo docker-compose build
-    - sudo docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $DEPLOY_TOKEN
-    - sudo docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA || true
-    - sudo docker build --pull --cache-from $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
-    - sudo docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker login -u $CI_REGISTRY_USER -p $DEPLOY_TOKEN
+    - docker build -t $IMAGE_NAME .
+    - docker tag $IMAGE_NAME $REGISTRY_IMAGE:$IMAGE_TAG
+    - docker push $REGISTRY_IMAGE:$IMAGE_TAG
+    - docker pull $REGISTRY_IMAGE:$IMAGE_TAG
+    - docker build -t $REGISTRY_IMAGE:$IMAGE_TAG .
+    - docker push $REGISTRY_IMAGE:$IMAGE_TAG
   only:
     - main
   tags:
     - shell
 
-deploy application:
-  stage: deploy
-  script:
-    - sudo ansible-playbook deploy.yml
-  only:
-    - main
-  tags:
-    - shell
+# deploy application:
+#   stage: deploy
+#   script:
+#     - sudo ansible-playbook deploy.yml
+#   only:
+#     - main
+#   tags:
+#     - shell
 
-stop application deployment:
-  stage: stop_deploy
-  script:
-    - sudo ansible-playbook stop_deploy.yml
-  only:
-    - main
-  when: manual
-  tags:
-    - shell
+# stop application deployment:
+#   stage: stop_deploy
+#   script:
+#     - sudo ansible-playbook stop_deploy.yml
+#   only:
+#     - main
+#   when: manual
+#   tags:
+#     - shell
 
