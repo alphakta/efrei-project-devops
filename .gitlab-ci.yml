@@ -17,7 +17,7 @@ build application:
   services:
     - docker:dind
   script:
-    - sudo docker login -u $CI_REGISTRY_USER -p $DEPLOY_TOKEN
+    - sudo docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $DEPLOY_TOKEN
     - sudo docker build -t $IMAGE_NAME .
     - sudo docker tag $IMAGE_NAME $REGISTRY_IMAGE:$IMAGE_TAG
     - sudo docker push $REGISTRY_IMAGE:$IMAGE_TAG
