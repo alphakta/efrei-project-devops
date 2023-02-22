@@ -24,5 +24,3 @@
     docker_compose:
       project_src: ./
       up: yes
-      detach: yes
-      remove_orphans: yes
