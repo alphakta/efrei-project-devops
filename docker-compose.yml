@@ -14,6 +14,7 @@ services:
     restart: always
     depends_on:
       - db
+      
   db: 
     image: mysql:latest
     environment:
@@ -25,6 +26,7 @@ services:
     restart: always
     volumes:
       - "./db:/docker-entrypoint-initdb.d"
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
