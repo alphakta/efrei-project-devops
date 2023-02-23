@@ -8,3 +8,12 @@
       project_src: ./
       stopped: true
       state: absent
+
+  - name: Remove Docker images
+    docker_image:
+      name: "{{ item }}"
+      state: absent
+      force: yes
+    items:
+      - "{{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}"
+      - "{{ IMAGE_NAME }}"

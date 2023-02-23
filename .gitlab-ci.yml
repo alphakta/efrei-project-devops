@@ -16,13 +16,6 @@ build application:
     - docker:dind
   script:
     - sudo ansible-playbook build.yml --extra-vars "CI_REGISTRY=$CI_REGISTRY CI_REGISTRY_USER=$CI_REGISTRY_USER CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA DEPLOY_TOKEN=$DEPLOY_TOKEN IMAGE_NAME=$IMAGE_NAME"
-    # - sudo docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $DEPLOY_TOKEN
-    # - sudo docker build -t $IMAGE_NAME .
-    # - sudo docker tag $IMAGE_NAME $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    # - sudo docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    # - sudo docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA || true
-    # - sudo docker build --cache-from $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
-    # - sudo docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
   only:
     - main
   tags:
@@ -40,9 +33,7 @@ deploy application:
 stop application deployment:
   stage: stop_deploy
   script:
-    - sudo ansible-playbook stop_deploy.yml
-    - sudo docker rmi -f $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - sudo docker rmi -f $IMAGE_NAME
+    - sudo ansible-playbook stop_deploy.yml --extra-vars "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA IMAGE_NAME=$IMAGE_NAME"
   only:
     - main
   when: manual
