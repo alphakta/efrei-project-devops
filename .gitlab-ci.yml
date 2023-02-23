@@ -19,8 +19,8 @@ build application:
     - sudo docker build -t $IMAGE_NAME .
     - sudo docker tag $IMAGE_NAME $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - sudo docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - sudo docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - sudo docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - sudo docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA || true
+    - sudo docker build --cache-from $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
     - sudo docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
   only:
     - main
