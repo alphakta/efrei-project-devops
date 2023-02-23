@@ -1,7 +1,7 @@
 FROM php:7.4-apache
 
 # Install all depedencies (docker, docker-compose, python3 ansible, extension mysqli)
-RUN apt-get remove docker docker-engine docker.io containerd runc python3-pip
+# RUN apt-get remove docker docker-engine docker.io containerd runc python3-pip
 RUN apt-get update && apt-get install -y git
 RUN apt-get install ca-certificates curl gnupg lsb-release
 RUN mkdir -m 0755 -p /etc/apt/keyrings
