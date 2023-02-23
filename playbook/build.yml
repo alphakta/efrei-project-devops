@@ -16,7 +16,7 @@
         name: "{{ IMAGE_NAME }}"
         tag: "{{ CI_COMMIT_SHA }}"
         push: yes
-        registry: "{{ CI_REGISTRY_IMAGE }}"
+        repository: "{{ CI_REGISTRY_IMAGE }}"
 
     - name: Pull Docker image
       docker_image:
