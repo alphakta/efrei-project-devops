@@ -7,6 +7,14 @@
     - name: Log in to Docker registry
       command: docker login {{ CI_REGISTRY }} -u {{ CI_REGISTRY_USER }} -p {{ DEPLOY_TOKEN }}
 
+    - name: List files in directory
+      command: ls
+      register: files_result
+
+    - name: Debug files result
+      debug:
+        var: files_result.stdout_lines
+
     - name: Build and push Docker image
       command: docker build -t {{ IMAGE_NAME }} .
 
