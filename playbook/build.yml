@@ -5,32 +5,19 @@
 
   tasks:
     - name: Log in to Docker registry
-      docker_login:
-        registry_url: "{{ CI_REGISTRY }}"
-        username: "{{ CI_REGISTRY_USER }}"
-        password: "{{ DEPLOY_TOKEN }}"
+      command: docker login {{ CI_REGISTRY }} -u {{ CI_REGISTRY_USER }} -p {{ DEPLOY_TOKEN }}
 
     - name: Build and push Docker image
-      docker_image:
-        path: ./
-        name: "{{ IMAGE_NAME }}"
-        tag: "{{ CI_COMMIT_SHA }}"
-        push: yes
-        repository: "{{ CI_REGISTRY_IMAGE }}"
+      command: >
+        docker build -t {{ IMAGE_NAME }} .
+        && docker tag {{ IMAGE_NAME }} {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}
+        && docker push {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}
 
     - name: Pull Docker image
-      docker_image:
-        name: "{{ IMAGE_NAME }}"
-        tag: "{{ CI_COMMIT_SHA }}"
-        source: "{{ CI_REGISTRY_IMAGE }}"
-        pull: yes
-        force_tag: yes
+      command: docker pull {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }} || true
 
     - name: Build Docker image with cache
-      docker_image:
-        path: ./
-        name: "{{ IMAGE_NAME }}"
-        tag: "{{ CI_COMMIT_SHA }}"
-        push: yes
-        registry: "{{ CI_REGISTRY_IMAGE }}"
-        cache_from: "{{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}"
+      command: docker build --cache-from {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }} --tag {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }} .
+
+    - name: Push Docker image
+      command: docker push {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}
