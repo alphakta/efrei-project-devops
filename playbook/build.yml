@@ -4,6 +4,9 @@
   gather_facts: false
 
   tasks:
+    - name: Change repository de répertoire
+      shell: cd ./..
+
     - name: Log in to Docker registry
       command: docker login {{ CI_REGISTRY }} -u {{ CI_REGISTRY_USER }} -p {{ DEPLOY_TOKEN }}
 
