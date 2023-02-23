@@ -9,14 +9,6 @@
       state: started
       enabled: yes
 
-  - name: Install mysqli extension
-    docker_container:
-      name: www
-      image: php:apache
-      command: docker-php-ext-install mysqli
-      state: started
-      restart: yes
-
   - name: Build and up containers with docker_compose
     docker_compose:
       project_src: ./
