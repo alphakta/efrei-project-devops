@@ -12,7 +12,7 @@
 
     - name: Build and push Docker image
       docker_image:
-        path: .
+        path: ./
         name: "{{ IMAGE_NAME }}"
         tag: "{{ CI_COMMIT_SHA }}"
         push: yes
@@ -28,7 +28,7 @@
 
     - name: Build Docker image with cache
       docker_image:
-        path: .
+        path: ./
         name: "{{ IMAGE_NAME }}"
         tag: "{{ CI_COMMIT_SHA }}"
         push: yes
