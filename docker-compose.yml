@@ -17,6 +17,7 @@ services:
     command: >
       bash -c "
         docker-php-ext-install mysqli
+        && apache2-foreground
       "
       
   db: 
