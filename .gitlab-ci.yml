@@ -1,7 +1,7 @@
 stages:
   - build
-  - deploy
-  - stop_deploy
+  # - deploy
+  # - stop_deploy
 
 services:
   - docker:dind
@@ -15,6 +15,7 @@ build application:
   services:
     - docker:dind
   script:
+    - echo $CI_REGISTRY
     - sudo ansible-playbook ./playbook/build.yml --extra-vars "CI_REGISTRY=test"
     # - sudo docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $DEPLOY_TOKEN
     # - sudo docker build -t $IMAGE_NAME .
@@ -28,24 +29,24 @@ build application:
   tags:
     - shell
 
-deploy application:
-  stage: deploy
-  script:
-    - sudo ansible-playbook ./playbook/deploy.yml
-  only:
-    - main
-  tags:
-    - shell
+# deploy application:
+#   stage: deploy
+#   script:
+#     - sudo ansible-playbook ./playbook/deploy.yml
+#   only:
+#     - main
+#   tags:
+#     - shell
 
-stop application deployment:
-  stage: stop_deploy
-  script:
-    - sudo ansible-playbook ./playbook/stop_deploy.yml
-    - sudo docker rmi -f $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - sudo docker rmi -f $IMAGE_NAME
-  only:
-    - main
-  when: manual
-  tags:
-    - shell
+# stop application deployment:
+#   stage: stop_deploy
+#   script:
+#     - sudo ansible-playbook ./playbook/stop_deploy.yml
+#     - sudo docker rmi -f $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+#     - sudo docker rmi -f $IMAGE_NAME
+#   only:
+#     - main
+#   when: manual
+#   tags:
+#     - shell
 
