@@ -15,7 +15,7 @@ build application:
   services:
     - docker:dind
   script:
-    - sudo ansible-playbook ./playbook/build.yml -e "@./playbook/vars.yml"
+    - sudo ansible-playbook ./playbook/build.yml --extra-vars "CI_REGISTRY=$CI_REGISTRY CI_REGISTRY_USER=$CI_REGISTRY_USER CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA DEPLOY_TOKEN=$DEPLOY_TOKEN IMAGE_NAME=$IMAGE_NAME"
     # - sudo docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $DEPLOY_TOKEN
     # - sudo docker build -t $IMAGE_NAME .
     # - sudo docker tag $IMAGE_NAME $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
