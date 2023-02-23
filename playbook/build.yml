@@ -6,35 +6,31 @@
   tasks:
     - name: Log in to Docker registry
       docker_login:
-        registry_url: "{{ lookup('env', 'CI_REGISTRY') }}"
-        username: "{{ lookup('env', 'CI_REGISTRY_USER') }}"
-        password: "{{ lookup('env', 'DEPLOY_TOKEN') }}"
+        registry_url: "{{ CI_REGISTRY }}"
+        username: "{{ CI_REGISTRY_USER }}"
+        password: "{{ DEPLOY_TOKEN }}"
 
-    - name: test console log ci registry
-      debug:
-        msg: "{{ CI_REGISTRY }}"
+    - name: Build and push Docker image
+      docker_image:
+        path: .
+        name: "{{ IMAGE_NAME }}"
+        tag: "{{ CI_COMMIT_SHA }}"
+        push: yes
+        registry: "{{ CI_REGISTRY_IMAGE }}"
 
-    # - name: Build and push Docker image
-    #   docker_image:
-    #     path: .
-    #     name: "{{ lookup('env', 'IMAGE_NAME') }}"
-    #     tag: "{{ lookup('env', 'CI_COMMIT_SHA') }}"
-    #     push: yes
-    #     registry: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}"
+    - name: Pull Docker image
+      docker_image:
+        name: "{{ IMAGE_NAME }}"
+        tag: "{{ CI_COMMIT_SHA }}"
+        source: "{{ CI_REGISTRY_IMAGE }}"
+        pull: yes
+        force_tag: yes
 
-    # - name: Pull Docker image
-    #   docker_image:
-    #     name: "{{ lookup('env', 'IMAGE_NAME') }}"
-    #     tag: "{{ lookup('env', 'CI_COMMIT_SHA') }}"
-    #     source: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}"
-    #     pull: yes
-    #     force_tag: yes
-
-    # - name: Build Docker image with cache
-    #   docker_image:
-    #     path: .
-    #     name: "{{ lookup('env', 'IMAGE_NAME') }}"
-    #     tag: "{{ lookup('env', 'CI_COMMIT_SHA') }}"
-    #     push: yes
-    #     registry: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}"
-    #     cache_from: "{{ lookup('env', 'CI_REGISTRY_IMAGE') }}:{{ lookup('env', 'CI_COMMIT_SHA') }}"
+    - name: Build Docker image with cache
+      docker_image:
+        path: .
+        name: "{{ IMAGE_NAME }}"
+        tag: "{{ CI_COMMIT_SHA }}"
+        push: yes
+        registry: "{{ CI_REGISTRY_IMAGE }}"
+        cache_from: "{{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}"
