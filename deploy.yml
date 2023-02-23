@@ -9,10 +9,12 @@
       state: started
       enabled: yes
 
-  # - name: Check if Docker image already exists
-  #   shell: docker inspect beprimeur:latest
-  #   register: docker_inspect
-  #   ignore_errors: true
+  - name: Install mysqli extension
+    docker_container:
+      name: www
+      image: php:7.4-apache
+      state: started
+      command: docker-php-ext-install mysqli pdo pdo_mysql
 
   - name: Build Application
     docker_compose:

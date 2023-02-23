@@ -14,11 +14,6 @@ services:
     restart: always
     depends_on:
       - db
-    command: >
-      bash -c "
-        docker-php-ext-install mysqli
-        && apache2-foreground
-      "
       
   db: 
     image: mysql:latest
