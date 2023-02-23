@@ -12,7 +12,7 @@
 
     - name: test console log ci registry
       debug:
-        msg: "{{ lookup('env', 'CI_REGISTRY') }}"
+        msg: "{{ CI_REGISTRY }}"
 
     # - name: Build and push Docker image
     #   docker_image:
