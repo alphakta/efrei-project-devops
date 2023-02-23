@@ -10,6 +10,10 @@
         username: "{{ lookup('env', 'CI_REGISTRY_USER') }}"
         password: "{{ lookup('env', 'DEPLOY_TOKEN') }}"
 
+    - name: test console log ci registry
+      debug:
+        msg: "{{ lookup('env', 'CI_REGISTRY') }}"
+
     - name: Build and push Docker image
       docker_image:
         path: .
