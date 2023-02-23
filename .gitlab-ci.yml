@@ -40,8 +40,8 @@ stop application deployment:
   stage: stop_deploy
   script:
     - sudo ansible-playbook stop_deploy.yml
-    - sudo docker rmi $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    - sudo docker rmi $IMAGE_NAME
+    - sudo docker rmi -f $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - sudo docker rmi -f $IMAGE_NAME
   only:
     - main
   when: manual
