@@ -21,7 +21,7 @@
 		<nav class="navbar navbar-default">
 			<div class="container-fluid" style="height: 70%">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Be-Primeur</a>
+					<a class="navbar-brand" href="#">test</a>
 				</div>
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="index_site.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
