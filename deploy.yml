@@ -12,17 +12,14 @@
   - name: Install mysqli extension
     docker_container:
       name: www
-      image: php:7.4-apache
+      image: php:apache
+      command: docker-php-ext-install mysqli
       state: started
-      command: docker-php-ext-install mysqli pdo pdo_mysql
+      restart: yes
 
-  - name: Build Application
-    docker_compose:
-      project_src: ./
-      build: yes
-      pull: yes
-
-  - name: Up containers with docker_compose
+  - name: Build and up containers with docker_compose
     docker_compose:
       project_src: ./
       state: present
+      build: yes
+      pull: yes
