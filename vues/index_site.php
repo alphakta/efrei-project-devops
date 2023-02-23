@@ -40,7 +40,7 @@
 
 
 		<div class="well well-lg"> 
-			<h1 class="text-center"> test bro</h1> 
+			<h1 class="text-center"> test Be -PRIMEUR </h1> 
 			<p class= "text-center"> 
 			Avec Be-Primeur, vos fruits et légumes cueillis le matin et livrés le lendemain !
 			En matière de goût, le chemin le plus court est toujours le meilleur… </br>
