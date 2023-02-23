@@ -31,7 +31,7 @@ build application:
 deploy application:
   stage: deploy
   script:
-    - sudo ansible-playbook ./playbook/deploy.yml
+    - sudo ansible-playbook deploy.yml
   only:
     - main
   tags:
@@ -40,7 +40,7 @@ deploy application:
 stop application deployment:
   stage: stop_deploy
   script:
-    - sudo ansible-playbook ./playbook/stop_deploy.yml
+    - sudo ansible-playbook stop_deploy.yml
     - sudo docker rmi -f $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - sudo docker rmi -f $IMAGE_NAME
   only:
