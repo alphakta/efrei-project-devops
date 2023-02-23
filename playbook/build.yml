@@ -8,10 +8,13 @@
       command: docker login {{ CI_REGISTRY }} -u {{ CI_REGISTRY_USER }} -p {{ DEPLOY_TOKEN }}
 
     - name: Build and push Docker image
-      command: >
-        docker build -t {{ IMAGE_NAME }} .
-        && docker tag {{ IMAGE_NAME }} {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}
-        && docker push {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}
+      command: docker build -t {{ IMAGE_NAME }} .
+
+    - name: Tag Docker Image
+      command: docker tag {{ IMAGE_NAME }} {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}
+
+    - name: Push Docker Image
+      command: docker push {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}
 
     - name: Pull Docker image
       command: docker pull {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }} || true
