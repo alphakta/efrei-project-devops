@@ -9,6 +9,23 @@ services:
 variables:
   IMAGE_NAME: beprimeur
 
+check_php_code:
+  stage: build
+  image: php:7.4-cli
+  script:
+    # Vérification de la qualité du code avec PHP CodeSniffer
+    - phpcs --standard=PSR2 ./controleurs/
+    - phpcs --standard=PSR2 ./modeles/
+    - phpcs --standard=PSR2 ./vues/
+    # Vérification de la présence de mots de passe en clair
+    - grep -rnw ./controleurs/ -e 'mot_de_passe' --color=auto
+    - grep -rnw ./modeles/ -e 'mot_de_passe' --color=auto
+    - grep -rnw ./vues/ -e 'mot_de_passe' --color=auto
+    # Vérification de la syntaxe des fichiers PHP avec PHP Lint
+    - find ./controleurs/ -type f -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
+    - find ./modeles/ -type f -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
+    - find ./vues/ -type f -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
+
 build application:
   stage: build
   image: docker:latest
