@@ -25,12 +25,17 @@ check_php_code:
     - find ./controleurs/ -type f -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
     - find ./modeles/ -type f -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
     - find ./vues/ -type f -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
+  only:
+    - main
+  tags:
+    - shell
 
 build application:
   stage: build
   image: docker:latest
   services:
     - docker:dind
+  needs: [check_php_code]
   script:
     - sudo ansible-playbook build.yml --extra-vars "CI_REGISTRY=$CI_REGISTRY CI_REGISTRY_USER=$CI_REGISTRY_USER CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA DEPLOY_TOKEN=$DEPLOY_TOKEN IMAGE_NAME=$IMAGE_NAME"
   only:
