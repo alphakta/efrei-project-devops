@@ -1,0 +1,7 @@
+- name: Be Primeur Application Web
+  hosts: all
+  become: true
+  roles:
+    - { role: 'docker', tags: 'package'}
+
+# ansible-playbook playbook.yml --tags "package"

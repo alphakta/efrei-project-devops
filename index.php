@@ -1,3 +1,5 @@
 <?php 
-    header('Location: ./vues/index_site.php');
+    header('Location: ./app/vues/index_site.php');
+
+    // test
 ?>

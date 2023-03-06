@@ -27,7 +27,7 @@ services:
       - host_cache_size=0
     restart: always
     volumes:
-      - "./db:/docker-entrypoint-initdb.d"
+      - "./app/db:/docker-entrypoint-initdb.d"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
