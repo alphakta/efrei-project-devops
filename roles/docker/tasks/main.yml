@@ -48,10 +48,11 @@
     mode: 0755
   when: not docker_compose_installed.stat.exists
 
-- name: Copie du répertoire local vers la machine distante
-  copy:
-    src: ./../../
-    dest: ./beprimeur/
+- name: Cloner le projet Git
+  git:
+    repo: https://gitlab.com/AlphaKeita/Be-Primeur.git
+    dest: ./
+    version: main
 
 - name: Starting docker service
   become: true
