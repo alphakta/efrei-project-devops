@@ -50,7 +50,7 @@
 
 - name: Cloner le projet Git
   git:
-    repo: https://gitlab.com/AlphaKeita/Be-Primeur.git
+    repo: git@gitlab.com:AlphaKeita/Be-Primeur.git
     dest: ./
     version: main
     force: yes
