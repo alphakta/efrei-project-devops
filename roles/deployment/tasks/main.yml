@@ -1,0 +1,12 @@
+- name: Start docker
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Build and up containers with docker_compose
+  docker_compose:
+    project_src: ./
+    state: present
+    build: yes
+    pull: yes

@@ -1,7 +1,7 @@
-- name: Recueil des faits des packages
+- name: Package facts
   ansible.builtin.package_facts:
 
-- name: Installation des dépendances
+- name: Installing dependencies
   apt:
     name: "{{item}}"
     state: present
@@ -14,18 +14,18 @@
     - software-properties-common
   when: item not in ansible_facts.packages
 
-- name: Ajout de la clé GPG officielle de Docker
+- name: Added official Docker GPG key
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
     validate_certs: yes  
 
-- name: Configuration du référentiel
+- name: Repository configuration
   apt_repository:
     repo: deb https://download.docker.com/linux/ubuntu bionic stable
     state: present
 
-- name: Instalaltion de docker
+- name: Docker installation
   apt:
     name: "{{item}}"
     state: latest
@@ -36,24 +36,25 @@
     - containerd.io
   when: item not in ansible_facts.packages
 
-- name: Check si docker-compose est installé
+- name: Check if docker-compose is installed
   stat:
     path: /usr/local/bin/docker-compose
   register: docker_compose_installed
 
-- name: Téléchargement et installation de docker-compose
+- name: Download and install docker-compose
   get_url:
     url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
     dest: /usr/local/bin/docker-compose
     mode: 0755
   when: not docker_compose_installed.stat.exists
 
-- name: Démarrage du service docker
+- name: Starting docker service
   become: true
   systemd:
     name: docker
     state: started
-- name: Vérifie que docker est actif
+
+- name: Check that docker is active
   service:
     name: docker
     state: started

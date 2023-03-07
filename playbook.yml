@@ -2,6 +2,9 @@
   hosts: all
   become: true
   roles:
-    - { role: 'docker', tags: 'package'}
+    - { role: 'docker', tags: 'package' }
+    - { role: 'build', tags: 'build' }
+    - { role: 'deployment', tags: 'deployment' }
+    - { role: 'stop_deployment', tags: 'stop' }
 
 # ansible-playbook playbook.yml --tags "package"

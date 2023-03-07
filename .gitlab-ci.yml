@@ -15,7 +15,8 @@ build application:
     - ls -l
     - ip a
     - cat index.php
-    # - sudo ansible-playbook build.yml --extra-vars "CI_REGISTRY=$CI_REGISTRY CI_REGISTRY_USER=$CI_REGISTRY_USER CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA DEPLOY_TOKEN=$DEPLOY_TOKEN IMAGE_NAME=$IMAGE_NAME"
+    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "package"
+    # - sudo ansible-playbook playbook.yml --extra-vars "CI_REGISTRY=$CI_REGISTRY CI_REGISTRY_USER=$CI_REGISTRY_USER CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA DEPLOY_TOKEN=$DEPLOY_TOKEN IMAGE_NAME=$IMAGE_NAME"
   only:
     - main
   tags:
