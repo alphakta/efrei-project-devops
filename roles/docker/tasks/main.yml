@@ -48,6 +48,11 @@
     mode: 0755
   when: not docker_compose_installed.stat.exists
 
+- name: Copier un répertoire local vers la machine distante
+  copy:
+    src: ./
+    dest: ./
+
 - name: Starting docker service
   become: true
   systemd:
