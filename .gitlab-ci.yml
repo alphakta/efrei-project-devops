@@ -35,22 +35,22 @@ build application:
   tags:
     - shell
 
-deploy application:
-  stage: deploy
-  script:
-    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "deployment"
-  only:
-    - main
-  tags:
-    - shell
+# deploy application:
+#   stage: deploy
+#   script:
+#     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "deployment"
+#   only:
+#     - main
+#   tags:
+#     - shell
 
-stop application deployment:
-  stage: stop_deploy
-  script:
-    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "stop" --extra-vars "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA IMAGE_NAME=$IMAGE_NAME"
-  only:
-    - main
-  when: manual
-  tags:
-    - shell
+# stop application deployment:
+#   stage: stop_deploy
+#   script:
+#     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "stop" --extra-vars "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA IMAGE_NAME=$IMAGE_NAME"
+#   only:
+#     - main
+#   when: manual
+#   tags:
+#     - shell
 
