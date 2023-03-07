@@ -1,7 +1,7 @@
 stages:
   - build
-  # - deploy
-  # - stop_deploy
+  - deploy
+  - stop_deploy
 
 services:
   - docker:dind
