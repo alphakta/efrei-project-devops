@@ -13,10 +13,8 @@ install application packages:
     - docker:dind
   script:
     - ls -l
-    - ip a
     - cat index.php
-    - ansible-playbook playbook.yml -i inventaire.yml --tags "package"
-    # - sudo ansible-playbook playbook.yml --extra-vars "CI_REGISTRY=$CI_REGISTRY CI_REGISTRY_USER=$CI_REGISTRY_USER CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA DEPLOY_TOKEN=$DEPLOY_TOKEN IMAGE_NAME=$IMAGE_NAME"
+    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "package"
   only:
     - main
   tags:
@@ -28,10 +26,7 @@ build application:
   services:
     - docker:dind
   script:
-    - ls -l
-    - ip a
-    - cat index.php
-    # - sudo ansible-playbook playbook.yml --extra-vars "CI_REGISTRY=$CI_REGISTRY CI_REGISTRY_USER=$CI_REGISTRY_USER CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA DEPLOY_TOKEN=$DEPLOY_TOKEN IMAGE_NAME=$IMAGE_NAME"
+    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "build" --extra-vars "CI_REGISTRY=$CI_REGISTRY CI_REGISTRY_USER=$CI_REGISTRY_USER CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA DEPLOY_TOKEN=$DEPLOY_TOKEN IMAGE_NAME=$IMAGE_NAME"
   only:
     - main
   needs:
@@ -39,22 +34,22 @@ build application:
   tags:
     - shell
 
-# deploy application:
-#   stage: deploy
-#   script:
-#     - sudo ansible-playbook deploy.yml
-#   only:
-#     - main
-#   tags:
-#     - shell
+deploy application:
+  stage: deploy
+  script:
+    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "deployment"
+  only:
+    - main
+  tags:
+    - shell
 
-# stop application deployment:
-#   stage: stop_deploy
-#   script:
-#     - sudo ansible-playbook stop_deploy.yml --extra-vars "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA IMAGE_NAME=$IMAGE_NAME"
-#   only:
-#     - main
-#   when: manual
-#   tags:
-#     - shell
+stop application deployment:
+  stage: stop_deploy
+  script:
+    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "stop" --extra-vars "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA IMAGE_NAME=$IMAGE_NAME"
+  only:
+    - main
+  when: manual
+  tags:
+    - shell
 
