@@ -1,8 +1,13 @@
 - name: Log in to Docker registry
   command: docker login {{ CI_REGISTRY }} -u {{ CI_REGISTRY_USER }} -p {{ DEPLOY_TOKEN }}
 
-- name: test
+- name: Exécuter ls -l
   command: ls -l
+  register: ls_output
+
+- name: Afficher la sortie de la commande ls -l
+  debug:
+    var: ls_output.stdout_lines
 
 - name: Build and push Docker image
   command: docker build -t {{ IMAGE_NAME }} .
