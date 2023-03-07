@@ -50,7 +50,7 @@
 
 - name: Copie du répertoire local vers la machine distante
   copy:
-    src: ./
+    src: ./../../
     dest: ./
 
 - name: Starting docker service
