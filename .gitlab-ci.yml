@@ -14,8 +14,8 @@ install application packages:
   script:
     - ls -l
     - cat index.php
-    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "package"
     - ssh user@192.168.1.44 -p 2222
+    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "package" -kK
   only:
     - main
   tags:
