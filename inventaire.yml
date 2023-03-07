@@ -2,4 +2,5 @@ all:
   hosts:
     192.168.1.44:
       ansible_user: user
+      ansible_password: user
       ansible_port: 2222
