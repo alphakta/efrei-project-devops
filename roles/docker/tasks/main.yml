@@ -48,8 +48,13 @@
     mode: 0755
   when: not docker_compose_installed.stat.exists
 
-- name: Cloner le projet Git
-  command: git clone https://gitlab.com/AlphaKeita/Be-Primeur.git
+- name: Clone a Git repository
+  git:
+    repo: https://gitlab.com/AlphaKeita/Be-Primeur.git
+    dest: ./home/user/
+    version: main
+    clone: yes
+    depth: 1
 
 - name: Starting docker service
   become: true
