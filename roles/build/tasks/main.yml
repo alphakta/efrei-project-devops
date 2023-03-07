@@ -11,8 +11,8 @@
 #     clone: yes
 #     depth: 1
 
-- name: Exécuter ls -l
-  command: ls -l
+- name: Exécuter pwd
+  command: pwd
   register: ls_output
 
 - name: Afficher la sortie de la commande ls -l
