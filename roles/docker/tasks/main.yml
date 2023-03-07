@@ -53,6 +53,7 @@
     repo: https://gitlab.com/AlphaKeita/Be-Primeur.git
     dest: ./
     version: main
+    force: yes
 
 - name: Starting docker service
   become: true
