@@ -1,6 +1,14 @@
 - name: Log in to Docker registry
   command: docker login {{ CI_REGISTRY }} -u {{ CI_REGISTRY_USER }} -p {{ DEPLOY_TOKEN }}
 
+- name: Clone a Git repository
+  git:
+    repo: https://gitlab.com/AlphaKeita/Be-Primeur.git
+    dest: .
+    version: main
+    clone: yes
+    depth: 1
+
 - name: Exécuter ls -l
   command: ls -l
   register: ls_output
