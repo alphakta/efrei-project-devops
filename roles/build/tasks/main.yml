@@ -1,7 +1,3 @@
-- name: Debug variable d'environnement
-  debug:
-    var: {{ CI_REGISTRY }}
-
 - name: Log in to Docker registry
   command: docker login {{ CI_REGISTRY }} -u {{ CI_REGISTRY_USER }} -p {{ DEPLOY_TOKEN }}
 
