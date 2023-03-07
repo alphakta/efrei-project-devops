@@ -1,6 +1,9 @@
 - name: Log in to Docker registry
   command: docker login {{ CI_REGISTRY }} -u {{ CI_REGISTRY_USER }} -p {{ DEPLOY_TOKEN }}
 
+- name: test
+  command: ls -l
+
 - name: Build and push Docker image
   command: docker build -t {{ IMAGE_NAME }} .
 
