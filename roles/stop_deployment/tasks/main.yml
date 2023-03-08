@@ -1,8 +1,5 @@
 - name: Stop all services
-  docker_compose:
-    project_src: ./
-    stopped: true
-    state: absent
+  command: docker stop $(docker ps -a -q)
 
 - name: Remove Docker images
   docker_image:
