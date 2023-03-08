@@ -32,7 +32,7 @@
     update_cache: yes
   loop:
     - docker-ce
-    - docker-py
+    # - docker-py
     - docker-ce-cli
     - containerd.io
   when: item not in ansible_facts.packages
