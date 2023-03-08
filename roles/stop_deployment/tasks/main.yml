@@ -2,10 +2,7 @@
   command: docker-compose -f /home/user/Be-Primeur/docker-compose.yml down
 
 - name: Remove Docker images
-  docker_image:
-    name: "{{ item }}"
-    state: absent
-    force: yes
+  command: "docker rmi {{ item }} -f"
   with_items:
     - "{{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}"
     - "{{ IMAGE_NAME }}"
