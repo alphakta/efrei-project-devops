@@ -10,6 +10,7 @@ session_start();
 <head>
 	<title>Be-Primeur</title>
 	<meta charset="utf-8">
+	<link rel="icon" type="image/png" sizes="64x64" href="./../source/bprimeur2.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css%22%3E">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
