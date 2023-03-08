@@ -1,7 +1,7 @@
 - name: Log in to Docker registry
   command: docker login {{ CI_REGISTRY }} -u {{ CI_REGISTRY_USER }} -p {{ DEPLOY_TOKEN }}
 
-- name: Build and push Docker image
+- name: Build Docker image
   command: docker build -t {{ IMAGE_NAME }} . -f /home/user/Be-Primeur/Dockerfile
 
 - name: Tag Docker Image
