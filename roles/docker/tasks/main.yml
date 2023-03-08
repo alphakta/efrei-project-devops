@@ -48,8 +48,13 @@
     mode: 0755
   when: not docker_compose_installed.stat.exists
 
+- name: Supprimer le dossier
+  file:
+    path: /home/user/Be-Primeur
+    state: absent
+
 - name: Cloner le projet Git
-  command: git clone https://gitlab.com/AlphaKeita/Be-Primeur.git /home/user/Be-Primeur --force
+  command: git clone https://gitlab.com/AlphaKeita/Be-Primeur.git
 
 - name: Starting docker service
   become: true
