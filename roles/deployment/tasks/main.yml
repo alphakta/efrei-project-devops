@@ -4,6 +4,9 @@
     state: started
     enabled: yes
 
+- name: Exécuter la commande docker-compose build
+  command: docker-compose -f /home/user/Be-Primeur/docker-compose.yml build
+
 - name: Exécuter la commande docker-compose
   command: docker-compose -f /home/user/Be-Primeur/docker-compose.yml up
   async: 10
