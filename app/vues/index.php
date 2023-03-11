@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css%22%3E">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="style/style.css">
+	<link rel="stylesheet" href="./style/style.css">
 	<link rel="icon" type="image/png" sizes="64x64" href="./source/bprimeur2.png">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -26,12 +26,12 @@
 				</div>
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="index.php><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
-				<li class="active"><a href="catalogue_fruit_legume.php"><span class="glyphicon glyphicon-list"></span> Nos produits</a></li>
-				<li class="active"><a href="catalogue_panier.php"><span class="glyphicon glyphicon-tree-conifer"></span> Nos paniers</a></li>
+				<li class="active"><a href="./catalogue_fruit_legume.php"><span class="glyphicon glyphicon-list"></span> Nos produits</a></li>
+				<li class="active"><a href="./catalogue_panier.php"><span class="glyphicon glyphicon-tree-conifer"></span> Nos paniers</a></li>
 			</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="formulaire_inscription.php"><span class="glyphicon glyphicon-user"></span> Inscription</a></li>
-					<li><a href="formulaire_connexion.php"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
+					<li><a href="./formulaire_inscription.php"><span class="glyphicon glyphicon-user"></span> Inscription</a></li>
+					<li><a href="./formulaire_connexion.php"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
 				</ul>
 			</div>
 		</nav>
