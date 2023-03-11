@@ -25,7 +25,7 @@
 					<a class="navbar-brand" href="#">Be-Primeur</a>
 				</div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="index_site.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
+				<li class="active"><a href="index.php><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
 				<li class="active"><a href="catalogue_fruit_legume.php"><span class="glyphicon glyphicon-list"></span> Nos produits</a></li>
 				<li class="active"><a href="catalogue_panier.php"><span class="glyphicon glyphicon-tree-conifer"></span> Nos paniers</a></li>
 			</ul>

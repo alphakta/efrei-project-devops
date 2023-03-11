@@ -2,6 +2,6 @@
 	session_start();
 	session_destroy();
 
-	header('Location: ./../vues/index_site.php');
+	header('Location: ./../vues/index.php');
 
 ?>
