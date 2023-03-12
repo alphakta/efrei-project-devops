@@ -5,9 +5,7 @@
     enabled: yes
 
 - name: Exécuter la commande docker-compose build
-  command: docker-compose -f /home/vagrant/Be-Primeur/docker-compose.yml build
+  command: docker-compose -f /home/user/Be-Primeur/docker-compose.yml build
 
-- name: Exécuter les conteneurs Docker avec Docker Compose
-  docker_compose:
-    project_src: /home/vagrant/Be-Primeur/docker-compose.yml
-    state: present
+- name: Exécuter la commande docker-compose
+  command: docker-compose -f /home/user/Be-Primeur/docker-compose.yml up -d
