@@ -15,7 +15,7 @@ install application packages:
     - ls -l
     - cat index.php
     - sudo ssh-keygen -f "/root/.ssh/known_hosts" -R "[192.168.1.44]:2222"
-    - sudo sshpass -p 'vagrant' ssh-copy-id -o "StrictHostKeyChecking=no" -i .ssh/id_rsa.pub -p 2222 vagrant@192.168.1.44
+    - sudo sshpass -p 'vagrant' ssh-copy-id -o "StrictHostKeyChecking=no" -i /home/user/.ssh/id_rsa.pub -p 2222 vagrant@192.168.1.44
     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "package"
   only:
     - feat/add_vagrant
