@@ -1,10 +1,21 @@
 stages:
+  - test
   - build
   - deploy
   - stop_deploy
 
 services:
   - docker:dind
+
+syntax_check:
+  stage: test
+  image: php:7.4-cli-alpine
+  script:
+    - find . -name "*.php" -print0 | xargs -0 -n1 php -l
+    - grep -r --exclude-dir="vendor" --exclude="*.md" --exclude=".git*" "password" .
+  allow_failure: true
+  tags:
+    - shell
 
 install application packages:
   stage: build
