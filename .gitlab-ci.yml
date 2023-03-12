@@ -16,7 +16,7 @@ install application packages:
     - cat index.php
     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "package"
   only:
-    - feat/add_vagrant
+    - main
   tags:
     - shell
 
@@ -33,7 +33,7 @@ build application:
     - echo $CI_REGISTRY
     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "build" --extra-vars "CI_REGISTRY=$CI_REGISTRY CI_REGISTRY_USER=$CI_REGISTRY_USER CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA DEPLOY_TOKEN=$DEPLOY_TOKEN IMAGE_NAME=$IMAGE_NAME"
   only:
-    - feat/add_vagrant
+    - main
   needs:
     - install application packages
   tags:
@@ -44,7 +44,7 @@ deploy application:
   script:
     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "deployment"
   only:
-    - feat/add_vagrant
+    - main
   tags:
     - shell
 
@@ -53,7 +53,7 @@ stop application deployment:
   script:
     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "stop" --extra-vars "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA IMAGE_NAME=$IMAGE_NAME"
   only:
-    - feat/add_vagrant
+    - main
   when: manual
   tags:
     - shell
