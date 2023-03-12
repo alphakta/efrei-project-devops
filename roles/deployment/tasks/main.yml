@@ -10,4 +10,4 @@
 - name: Exécuter les conteneurs Docker avec Docker Compose
   docker_compose:
     project_src: /home/vagrant/Be-Primeur/docker-compose.yml
-    state: started
+    state: present
