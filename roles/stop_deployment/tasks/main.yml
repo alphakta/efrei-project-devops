@@ -1,5 +1,5 @@
 - name: Stop all services
-  command: docker-compose -f /home/user/Be-Primeur/docker-compose.yml down
+  command: docker-compose -f /home/vagrant/Be-Primeur/docker-compose.yml down
 
 - name: Remove Docker images
   command: "docker rmi {{ item }} -f"

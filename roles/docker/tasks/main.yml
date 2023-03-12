@@ -51,7 +51,7 @@
 
 - name: Supprimer le dossier
   file:
-    path: /home/user/Be-Primeur
+    path: /home/vagrant/Be-Primeur
     state: absent
 
 - name: Cloner le projet Git
