@@ -8,7 +8,9 @@ Vagrant.configure("2") do |config|
     vb.memory = "4096" 
     vb.cpus = 2 
   end
- 
+  config.ssh.insert_key = false
+  config.ssh.verify_host_key = false
+  
   config.vm.provision "shell", inline: <<-SHELL
     sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes /g' /etc/ssh/sshd_config
     service ssh restart
