@@ -7,18 +7,7 @@
 - name: Exécuter la commande docker-compose build
   command: docker-compose -f /home/vagrant/Be-Primeur/docker-compose.yml build
 
-- name: Exécuter la commande docker-compose
-  command: docker-compose -f /home/vagrant/Be-Primeur/docker-compose.yml up
-  async: 30
-  poll: 0
-  register: docker_up_result
-
-- name: Vérifier l'état des conteneurs
-  docker_container_info:
-    name: "{{ item }}"
-  register: container_info
-  with_items: "{{ docker_up_result.stdout_lines }}"
-  until: container_info.state == "running"
-  retries: 30
-  delay: 10
-
+- name: Exécuter les conteneurs Docker avec Docker Compose
+  docker_compose:
+    project_src: /home/vagrant/Be-Primeur/docker-compose.yml
+    state: started
