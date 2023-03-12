@@ -8,6 +8,4 @@
   command: docker-compose -f /home/vagrant/Be-Primeur/docker-compose.yml build
 
 - name: Exécuter la commande docker-compose
-  command: docker-compose -f /home/vagrant/Be-Primeur/docker-compose.yml up
-  async: 10
-  poll: 0
+  command: docker-compose -f /home/vagrant/Be-Primeur/docker-compose.yml up -d

@@ -1,10 +1,22 @@
 stages:
+  - test
   - build
   - deploy
   - stop_deploy
 
 services:
   - docker:dind
+
+syntax_check:
+  stage: test
+  image: php:7.4-cli-alpine
+  script:
+    - grep -r --exclude-dir="vendor" --exclude="*.md" --exclude=".git*" "password" .
+  allow_failure: true
+  only:
+    - main
+  tags:
+    - shell
 
 install application packages:
   stage: build
@@ -14,6 +26,8 @@ install application packages:
   script:
     - ls -l
     - cat index.php
+    - sudo ssh-keygen -f "/root/.ssh/known_hosts" -R "[192.168.1.44]:2222"
+    - sudo sshpass -p 'vagrant' ssh-copy-id -o "StrictHostKeyChecking=no" -i /home/user/.ssh/id_rsa.pub -p 2222 vagrant@192.168.1.44
     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "package"
   only:
     - main
