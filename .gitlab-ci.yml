@@ -14,6 +14,7 @@ install application packages:
   script:
     - ls -l
     - cat index.php
+    - sudo ssh-keygen -f "/root/.ssh/known_hosts" -R "[192.168.1.44]:2222"
     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "package"
   only:
     - feat/add_vagrant
