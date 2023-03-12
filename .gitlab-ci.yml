@@ -9,7 +9,8 @@ services:
 up machine virtual:
   stage: build
   script:
-    - dir
+    - cd C:\Users\alpha\Desktop\M1\DevOps\Be-Primeur
+    - ls -l
     - vagrant up
   only:
     - feat/add_vagrant
