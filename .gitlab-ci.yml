@@ -1,60 +1,72 @@
 stages:
   - build
-  - deploy
-  - stop_deploy
+  # - deploy
+  # - stop_deploy
 
 services:
   - docker:dind
 
-install application packages:
+up machine virtual:
   stage: build
-  image: docker:latest
-  services:
-    - docker:dind
   script:
-    - ls -l
-    - cat index.php
-    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "package"
+    - dir
+    # - vagrant up
   only:
-    - main
+    - feat/add_vagrant
   tags:
-    - shell
+    - windows-runner
 
-build application:
-  stage: build
-  image: docker:latest
-  services:
-    - docker:dind
-  script:
-    - ls -l
-    - pwd
-    - echo $CI_REGISTRY_USER
-    - echo $DEPLOY_TOKEN
-    - echo $CI_REGISTRY
-    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "build" --extra-vars "CI_REGISTRY=$CI_REGISTRY CI_REGISTRY_USER=$CI_REGISTRY_USER CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA DEPLOY_TOKEN=$DEPLOY_TOKEN IMAGE_NAME=$IMAGE_NAME"
-  only:
-    - main
-  needs:
-    - install application packages
-  tags:
-    - shell
+# install application packages:
+#   stage: build
+#   image: docker:latest
+#   services:
+#     - docker:dind
+#   script:
+#     - ls -l
+#     - cat index.php
+#     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "package"
+#   only:
+#     - main
+#   needs:
+#     - up machine virtual
+#   tags:
+#     - shell
 
-deploy application:
-  stage: deploy
-  script:
-    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "deployment"
-  only:
-    - main
-  tags:
-    - shell
+# build application:
+#   stage: build
+#   image: docker:latest
+#   services:
+#     - docker:dind
+#   script:
+#     - ls -l
+#     - pwd
+#     - echo $CI_REGISTRY_USER
+#     - echo $DEPLOY_TOKEN
+#     - echo $CI_REGISTRY
+#     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "build" --extra-vars "CI_REGISTRY=$CI_REGISTRY CI_REGISTRY_USER=$CI_REGISTRY_USER CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA DEPLOY_TOKEN=$DEPLOY_TOKEN IMAGE_NAME=$IMAGE_NAME"
+#   only:
+#     - main
+#   needs:
+#     - install application packages
+#   tags:
+#     - shell
 
-stop application deployment:
-  stage: stop_deploy
-  script:
-    - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "stop" --extra-vars "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA IMAGE_NAME=$IMAGE_NAME"
-  only:
-    - main
-  when: manual
-  tags:
-    - shell
+# deploy application:
+#   stage: deploy
+#   script:
+#     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "deployment"
+#   only:
+#     - main
+#   tags:
+#     - shell
+
+# stop application deployment:
+#   stage: stop_deploy
+#   script:
+#     - sudo ansible-playbook playbook.yml -i inventaire.yml --tags "stop" --extra-vars "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE CI_COMMIT_SHA=$CI_COMMIT_SHA IMAGE_NAME=$IMAGE_NAME"
+#   only:
+#     - main
+#   when: manual
+#   tags:
+#     - shell
 
