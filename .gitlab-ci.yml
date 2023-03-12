@@ -10,7 +10,7 @@ up machine virtual:
   stage: build
   script:
     - dir
-    # - vagrant up
+    - vagrant up
   only:
     - feat/add_vagrant
   tags:
