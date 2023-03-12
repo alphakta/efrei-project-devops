@@ -2,7 +2,7 @@
   command: docker login {{ CI_REGISTRY }} -u {{ CI_REGISTRY_USER }} -p {{ DEPLOY_TOKEN }}
 
 - name: Build Docker image
-  command: docker build -t {{ IMAGE_NAME }} . -f /home/user/Be-Primeur/Dockerfile
+  command: docker build -t {{ IMAGE_NAME }} . -f /home/vagrant/Be-Primeur/Dockerfile
 
 - name: Tag Docker Image
   command: docker tag {{ IMAGE_NAME }} {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}
@@ -15,7 +15,7 @@
   ignore_errors: true
 
 - name: Build Docker image with cache
-  command: docker build --cache-from {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }} --tag {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }} . -f /home/user/Be-Primeur/Dockerfile
+  command: docker build --cache-from {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }} --tag {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }} . -f /home/vagrant/Be-Primeur/Dockerfile
 
 - name: Push Docker image
   command: docker push {{ CI_REGISTRY_IMAGE }}:{{ CI_COMMIT_SHA }}
