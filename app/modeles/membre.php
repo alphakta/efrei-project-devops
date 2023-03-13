@@ -41,7 +41,6 @@
     }
   
     public function ajoutBD($co, $prenom, $nom, $mdp, $email, $adresse, $tel, $codepostal, $ville) {
-        //mysqli_query($co, "INSERT into quartier (codeQuartier, nomQuartier) VALUES ('$codepostal','$ville')");
         $numQuartier = mysqli_insert_id($co);
         $mdpHash = password_hash($mdp, PASSWORD_DEFAULT);
 
