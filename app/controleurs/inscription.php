@@ -21,6 +21,9 @@
 if(!empty($prenom) && !empty($nom) && !empty($prenom) && !empty($email) && !empty($mdp)&& !empty($adresse) && !empty($tel) && !empty($cp) && !empty($ville)) {
 
     
+if(!empty($prenom) && !empty($nom) && !empty($prenom) && !empty($email) && !empty($mdp)&& !empty($adresse) && !empty($tel) && !empty($cp) && !empty($ville)) {
+
+    
     $unMembre = new Membre($coBDD, $prenom, $nom, $mdp, $email, $adresse, $tel, $cp, $ville);
 
     	$row1 = mysqli_query($coBDD, "SELECT * FROM quartier WHERE codeQuartier = '$cp' ");

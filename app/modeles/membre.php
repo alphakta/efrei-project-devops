@@ -44,7 +44,7 @@
         $numQuartier = mysqli_insert_id($co);
         $mdpHash = password_hash($mdp, PASSWORD_DEFAULT);
 
-    	mysqli_query($co, "insert into client (prenomClient, nomClient, mdpClient, mailClient, adresseClient, telClient, numQuartier) VALUES ('$prenom','$nom','$mdpHash','$email','$adresse','$tel', '$numQuartier')");
+    	mysqli_query($this->co, "insert into client (prenomClient, nomClient, mdpClient, mailClient, adresseClient, telClient, numQuartier) VALUES ('$prenom','$nom','$mdpHash','$email','$adresse','$tel', '$numQuartier')");
     }
 
     public function initialiser($mail, $mdp)
