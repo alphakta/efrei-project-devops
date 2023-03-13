@@ -40,8 +40,8 @@
     	}
     }
   
-    public function ajoutBD($prenom, $nom, $mdp, $email, $adresse, $tel, $numQuartier) {
-        //mysqli_query($co, "INSERT into quartier (codeQuartier, nomQuartier) VALUES ('$codepostal','$ville')");
+    public function ajoutBD($co, $prenom, $nom, $mdp, $email, $adresse, $tel, $codepostal, $ville) {
+        $numQuartier = mysqli_insert_id($co);
         $mdpHash = password_hash($mdp, PASSWORD_DEFAULT);
 
     	mysqli_query($this->co, "insert into client (prenomClient, nomClient, mdpClient, mailClient, adresseClient, telClient, numQuartier) VALUES ('$prenom','$nom','$mdpHash','$email','$adresse','$tel', '$numQuartier')");
