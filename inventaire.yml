@@ -1,6 +1,6 @@
 all:
   hosts:
-    192.168.1.44:
+    10.3.220.169:
       ansible_user: vagrant
       ansible_password: vagrant
       ansible_port: 2222
